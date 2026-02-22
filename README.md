@@ -83,7 +83,7 @@ DragonPulse/
 7. Setup (Windows, PowerShell)
 1) Create and activate environment
 
-cd C:\Users\магамед\DragonPulse
+cd YOUR_PATH\DragonPulse
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 
