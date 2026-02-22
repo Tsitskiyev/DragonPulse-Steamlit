@@ -1,9 +1,37 @@
-import streamlit as st
+import streamlit_app as st
 import requests
 import pandas as pd
 from datetime import datetime
+import os
+from urllib.parse import urlparse
 
 API_BASE_DEFAULT = "http://127.0.0.1:8000/api"
+IS_CLOUD = bool(os.getenv("STREAMLIT_CLOUD")) or bool(os.getenv("STREAMLIT_SERVER_HEADLESS"))
+# на практике STREAMLIT_SERVER_HEADLESS=True на Streamlit Cloud
+
+def get_api_base() -> str:
+    # Streamlit Cloud secrets
+    try:
+        v = st.secrets.get("API_BASE", None)
+        if v:
+            return str(v).rstrip("/")
+    except Exception:
+        pass
+
+    # Local env
+    v = os.getenv("API_BASE")
+    if v:
+        return v.rstrip("/")
+
+    return API_BASE_DEFAULT.rstrip("/")
+
+API_BASE = get_api_base()
+
+def api_is_local(api_base: str) -> bool:
+    host = urlparse(api_base).hostname or ""
+    return host in ("127.0.0.1", "localhost")
+
+API_ENABLED = True  # можно выключать, если хочешь только mock
 
 
 # -----------------------------
@@ -226,7 +254,12 @@ with tab_eval:
     st.subheader("Rolling Backtest & Ablation")
     data, err = safe_get(f"{api_base}/risk/backtest-summary", timeout=timeout_sec)
     if err:
-        st.error(err)
+        if "127.0.0.1" in api_base or "localhost" in api_base:
+            st.info("Cloud-режим: backend не запущен, показываю заглушку.")
+            data = {"status": "not_ready", "message": "API недоступен в облаке без отдельного backend."}
+        else:
+            st.error(err)
+            st.stop()
     else:
         if data.get("status") == "not_ready":
             st.warning(data.get("message"))
