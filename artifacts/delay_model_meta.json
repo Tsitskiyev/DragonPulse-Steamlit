@@ -1,0 +1,26 @@
+{
+  "model_name": "XGBRegressor",
+  "features": [
+    "queue_index",
+    "weather_risk",
+    "news_risk",
+    "backlog_index",
+    "ops_risk"
+  ],
+  "target": "delay_hours",
+  "metrics": {
+    "mae": 1.6320938072204587,
+    "rmse": 2.046356885570894,
+    "mape_percent": 5.623286160612328
+  },
+  "feature_importance": {
+    "queue_index": 0.5421931743621826,
+    "weather_risk": 0.0520501546561718,
+    "news_risk": 0.06076662614941597,
+    "backlog_index": 0.3114112615585327,
+    "ops_risk": 0.03357875347137451
+  },
+  "train_rows": 400,
+  "test_rows": 100,
+  "source_csv": "data/port_delay_training.csv"
+}

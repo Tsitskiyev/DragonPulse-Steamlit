@@ -1,0 +1,43 @@
+{
+  "dataset_rows": 500,
+  "features": [
+    "queue_index",
+    "weather_risk",
+    "news_risk",
+    "backlog_index",
+    "ops_risk"
+  ],
+  "target": "delay_hours",
+  "results_csv": "artifacts\\backtest_results.csv",
+  "summary_json": "artifacts\\backtest_summary.json",
+  "summary": {
+    "baseline_formula": {
+      "mae_mean": 15.0034,
+      "rmse_mean": 15.987378374162345,
+      "mape_mean_percent": 45.9673005012725,
+      "folds": 6,
+      "mae_improvement_vs_baseline_percent": 0.0
+    },
+    "ml_full": {
+      "mae_mean": 1.6828891579945882,
+      "rmse_mean": 2.215416311212,
+      "mape_mean_percent": 6.0440872961869365,
+      "folds": 6,
+      "mae_improvement_vs_baseline_percent": 88.78328140291809
+    },
+    "ml_no_news_risk": {
+      "mae_mean": 2.6285430239359537,
+      "rmse_mean": 3.294884384652871,
+      "mape_mean_percent": 9.165507594440273,
+      "folds": 6,
+      "mae_improvement_vs_baseline_percent": 82.48035096087584
+    },
+    "ml_no_weather_risk": {
+      "mae_mean": 2.2884545598347983,
+      "rmse_mean": 2.8468068939315803,
+      "mape_mean_percent": 8.05795884603713,
+      "folds": 6,
+      "mae_improvement_vs_baseline_percent": 84.74709359322021
+    }
+  }
+}
