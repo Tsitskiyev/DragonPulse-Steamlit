@@ -106,7 +106,7 @@ Docs: http://127.0.0.1:8000/docs
 
 9. Start Dashboard (new terminal)
 
-cd C:\Users\магамед\DragonPulse
+cd G:\projects\PROJECT1\DragonPulse
 .\.venv\Scripts\Activate.ps1
 python -m streamlit run app/dashboard/streamlit_app.py
 
